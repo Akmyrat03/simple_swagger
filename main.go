@@ -22,6 +22,12 @@ func main() {
 	user := r.Group("/users")
 	{
 		user.POST("/", handlers.CreateUser)
+		user.GET("/all", handlers.GetUsers)
+	}
+
+	countries := r.Group("/countries")
+	{
+		countries.GET("/all", handlers.GetCountries)
 	}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

@@ -15,6 +15,23 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/countries/all": {
+            "get": {
+                "description": "get all countries",
+                "tags": [
+                    "Countries"
+                ],
+                "summary": "get all countries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.countryResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/users": {
             "post": {
                 "description": "create new user",
@@ -40,8 +57,8 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/model.User"
                         }
@@ -54,13 +71,60 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/users/all": {
+            "get": {
+                "description": "get all users",
+                "tags": [
+                    "Users"
+                ],
+                "summary": "return list of all users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.userResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "handlers.countryResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Country"
+                    }
+                }
+            }
+        },
         "handlers.errResponse": {
             "type": "object",
             "properties": {
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.userResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.User"
+                    }
+                }
+            }
+        },
+        "model.Country": {
+            "type": "object",
+            "properties": {
+                "name": {
                     "type": "string"
                 }
             }

@@ -20,3 +20,26 @@ func CreateUser(user User) error {
 type Country struct {
 	Name string `json:"name"`
 }
+
+var countries = []Country{
+	{Name: "USA"},
+	{Name: "Canada"},
+	{Name: "UK"},
+}
+
+func ListUsers() []User {
+	return users
+}
+
+func GetUser(username string) (*User, error) {
+	for _, user := range users {
+		if user.Username == username {
+			return &user, nil
+		}
+
+	}
+}
+
+func ListCountries() []Country {
+	return countries
+}

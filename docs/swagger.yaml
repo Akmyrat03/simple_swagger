@@ -1,7 +1,26 @@
 definitions:
+  handlers.countryResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.Country'
+        type: array
+    type: object
   handlers.errResponse:
     properties:
       message:
+        type: string
+    type: object
+  handlers.userResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.User'
+        type: array
+    type: object
+  model.Country:
+    properties:
+      name:
         type: string
     type: object
   model.User:
@@ -22,6 +41,17 @@ info:
   title: Simple API
   version: "1"
 paths:
+  /countries/all:
+    get:
+      description: get all countries
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.countryResponse'
+      summary: get all countries
+      tags:
+      - Countries
   /users:
     post:
       consumes:
@@ -37,8 +67,8 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/model.User'
         "400":
@@ -46,6 +76,17 @@ paths:
           schema:
             $ref: '#/definitions/handlers.errResponse'
       summary: create a new user
+      tags:
+      - Users
+  /users/all:
+    get:
+      description: get all users
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.userResponse'
+      summary: return list of all users
       tags:
       - Users
 swagger: "2.0"
