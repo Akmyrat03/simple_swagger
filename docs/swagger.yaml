@@ -1,0 +1,51 @@
+definitions:
+  handlers.errResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  model.User:
+    properties:
+      email:
+        type: string
+      fullName:
+        type: string
+      isActive:
+        type: boolean
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Sample description
+  title: Simple API
+  version: "1"
+paths:
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: create new user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.errResponse'
+      summary: create a new user
+      tags:
+      - Users
+swagger: "2.0"
